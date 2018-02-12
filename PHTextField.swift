@@ -21,7 +21,6 @@ class PHTextField: UIView {
         set {
             placeholderLabel.text = newValue
             recalculateLayout()
-            setNeedsDisplay()
         }
     }
     
@@ -30,7 +29,6 @@ class PHTextField: UIView {
         set {
             placeholderLabel.font = newValue
             recalculateLayout()
-            setNeedsDisplay()
         }
     }
     
@@ -81,6 +79,7 @@ class PHTextField: UIView {
         }
     }
     
+    @available(iOS 10.0, *)
     var textContentType: UITextContentType {
         get { return textField.textContentType }
         set { textField.textContentType = newValue }
@@ -96,16 +95,19 @@ class PHTextField: UIView {
         set { textField.autocorrectionType = newValue }
     }
     
+    @available(iOS 11.0, *)
     var smartDashesType: UITextSmartDashesType {
         get { return textField.smartDashesType }
         set { textField.smartDashesType = newValue }
     }
     
+    @available(iOS 11.0, *)
     var smartInsertDeleteType: UITextSmartInsertDeleteType {
         get { return textField.smartInsertDeleteType }
         set { textField.smartInsertDeleteType = newValue }
     }
     
+    @available(iOS 11.0, *)
     var smartQuotesType: UITextSmartQuotesType {
         get { return textField.smartQuotesType }
         set { textField.smartQuotesType = newValue }
