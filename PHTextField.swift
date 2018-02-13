@@ -9,14 +9,14 @@
 import UIKit
 
 @IBDesignable
-class PHTextField: UIView {
+public class PHTextField: UIView {
 
-    private let textField = UITextField()
+    internal let textField = UITextField()
     private let placeholderLabel = UILabel()
     
     // MARK: - Placeholder properties
     
-    @IBInspectable var placeholder: String? {
+    @IBInspectable public var placeholder: String? {
         get { return placeholderLabel.text }
         set {
             placeholderLabel.text = newValue
@@ -24,7 +24,7 @@ class PHTextField: UIView {
         }
     }
     
-    @IBInspectable var placeholderFont: UIFont {
+    @IBInspectable public var placeholderFont: UIFont {
         get { return placeholderLabel.font }
         set {
             placeholderLabel.font = newValue
@@ -32,29 +32,34 @@ class PHTextField: UIView {
         }
     }
     
-    @IBInspectable var placeholderTextColor: UIColor? {
+    @IBInspectable public var placeholderTextColor: UIColor? {
         get { return placeholderLabel.textColor }
         set { placeholderLabel.textColor = newValue }
     }
     
-    @IBInspectable var placeholderBackgroundColor: UIColor? {
+    @IBInspectable public var placeholderBackgroundColor: UIColor? {
         get { return placeholderLabel.backgroundColor }
         set { placeholderLabel.backgroundColor = newValue }
     }
     
     // MARK: - Text field properties
     
-    @IBInspectable var font: UIFont? {
+    public var delegate: UITextFieldDelegate? {
+        get { return textField.delegate }
+        set { textField.delegate = newValue }
+    }
+    
+    @IBInspectable public var font: UIFont? {
         get { return textField.font }
         set { textField.font = newValue }
     }
     
-    @IBInspectable var textColor: UIColor? {
+    @IBInspectable public var textColor: UIColor? {
         get { return textField.textColor }
         set { textField.textColor = newValue }
     }
     
-    @IBInspectable override var backgroundColor: UIColor? {
+    @IBInspectable override public var backgroundColor: UIColor? {
         get { return textField.backgroundColor }
         set {
             textField.backgroundColor = newValue
@@ -62,14 +67,19 @@ class PHTextField: UIView {
         }
     }
     
-    @IBInspectable var textAlignment: NSTextAlignment {
+    @IBInspectable public var textAlignment: NSTextAlignment {
         get { return textField.textAlignment }
         set { textField.textAlignment = newValue }
     }
     
+    @IBInspectable public var keyboardType: UIKeyboardType {
+        get { return textField.keyboardType }
+        set { textField.keyboardType = newValue }
+    }
+    
     private var _textOffset: CGFloat = 2.0
     
-    @IBInspectable var textOffset: CGFloat {
+    @IBInspectable public var textOffset: CGFloat {
         get { return _textOffset }
         set {
             if _textOffset != newValue {
@@ -80,51 +90,61 @@ class PHTextField: UIView {
     }
     
     @available(iOS 10.0, *)
-    var textContentType: UITextContentType {
+    @IBInspectable public var textContentType: UITextContentType {
         get { return textField.textContentType }
         set { textField.textContentType = newValue }
     }
     
-    var autocapitalizationType: UITextAutocapitalizationType {
+    @IBInspectable public var autocapitalizationType: UITextAutocapitalizationType {
         get { return textField.autocapitalizationType }
         set { textField.autocapitalizationType = newValue }
     }
     
-    var autocorrectionType: UITextAutocorrectionType {
+    @IBInspectable public var autocorrectionType: UITextAutocorrectionType {
         get { return textField.autocorrectionType }
         set { textField.autocorrectionType = newValue }
     }
     
     @available(iOS 11.0, *)
-    var smartDashesType: UITextSmartDashesType {
+    @IBInspectable public var smartDashesType: UITextSmartDashesType {
         get { return textField.smartDashesType }
         set { textField.smartDashesType = newValue }
     }
     
     @available(iOS 11.0, *)
-    var smartInsertDeleteType: UITextSmartInsertDeleteType {
+    @IBInspectable public var smartInsertDeleteType: UITextSmartInsertDeleteType {
         get { return textField.smartInsertDeleteType }
         set { textField.smartInsertDeleteType = newValue }
     }
     
     @available(iOS 11.0, *)
-    var smartQuotesType: UITextSmartQuotesType {
+    @IBInspectable public var smartQuotesType: UITextSmartQuotesType {
         get { return textField.smartQuotesType }
         set { textField.smartQuotesType = newValue }
     }
     
-    var spellCheckingType: UITextSpellCheckingType {
+    @IBInspectable public var spellCheckingType: UITextSpellCheckingType {
         get { return textField.spellCheckingType }
         set { textField.spellCheckingType = newValue }
     }
     
+    public override var isFirstResponder: Bool {
+        get { return textField.isFirstResponder }
+    }
     
+    public override func becomeFirstResponder() -> Bool {
+        return textField.becomeFirstResponder()
+    }
+    
+    public override func resignFirstResponder() -> Bool {
+        return textField.resignFirstResponder()
+    }
     
     // MARK: - Common properties
     
     private var _borderStyle: UITextBorderStyle = .none
     
-    var borderStyle: UITextBorderStyle {
+    public var borderStyle: UITextBorderStyle {
         get { return _borderStyle }
         set {
             if _borderStyle != newValue {
@@ -153,20 +173,21 @@ class PHTextField: UIView {
         }
     }
     
-    
-    required init?(coder aDecoder: NSCoder) {
+    required public init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.addSubview(placeholderLabel)
         self.addSubview(textField)
+        self.isUserInteractionEnabled = true
     }
     
-    override init(frame: CGRect) {
+    override public init(frame: CGRect) {
         super.init(frame: frame)
         self.addSubview(placeholderLabel)
         self.addSubview(textField)
+        self.isUserInteractionEnabled = true
     }
     
-    override func layoutSubviews() {
+    override public func layoutSubviews() {
         super.layoutSubviews()
         recalculateLayout()
     }
